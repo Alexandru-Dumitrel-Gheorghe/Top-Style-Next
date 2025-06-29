@@ -97,24 +97,36 @@
 }
 
 .badge {
-  display: inline-block;
-  background: linear-gradient(90deg, #ffe066 0%, #ffd700 100%);
-  color: #312a1e; /* aproape negru pentru contrast elegant */
-  padding: 0.45em 1.4em;
-  border-radius: 2em;
+  display: inline-flex;
+  align-items: center;
+  background: linear-gradient(135deg, #d4af37, #f8e08e);
+  color: #1a1a1a;
+  padding: 0.6rem 1.5rem;
+  border-radius: 50px;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.9rem;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
-  margin-bottom: 1.3em;
-  box-shadow: 0 2px 16px 0 rgba(255, 215, 0, 0.23),
-    0 1.5px 5px 0 rgba(48, 38, 0, 0.11);
-  /* BORDER ALB SEMI-TRANSPARENT (trick vizual premium) */
-  border: 1.7px solid rgba(255, 255, 255, 0.25);
-  /* Blur pentru fundal dacă vrei efect „glass” */
-  backdrop-filter: blur(2.5px);
-  /* Efect de „softness” la hover */
-  transition: transform 0.15s, box-shadow 0.15s, background 0.18s;
+  letter-spacing: 3px;
+  margin-bottom: 2rem;
+  box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+badge::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
 }
 .badge:hover,
 .badge:focus {
@@ -166,28 +178,28 @@
 
 .buttonGroup {
   display: flex;
-  gap: var(--space-md);
-  margin-top: var(--space-xl);
+  gap: 1.5rem;
+  margin-top: 3rem;
 }
 
 .primaryButton {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-sm);
-  background: linear-gradient(
-    135deg,
-    var(--accent-gold),
-    var(--accent-gold-light)
-  );
-  color: var(--primary-dark);
-  padding: var(--space-md) var(--space-xl);
-  border-radius: var(--radius-md);
+  gap: 0.8rem;
+  background: linear-gradient(135deg, #d4af37, #f8e08e);
+  color: #1a1a1a;
+  padding: 1.2rem 2.5rem;
+  border-radius: 50px;
   font-weight: 600;
+  font-size: 1.1rem;
   text-decoration: none;
-  transition: all var(--transition-medium);
-  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
   position: relative;
   overflow: hidden;
+  border: none;
+  cursor: pointer;
+  z-index: 1;
+  box-shadow: 0 5px 25px rgba(212, 175, 55, 0.4);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .primaryButton::before {
@@ -207,21 +219,31 @@
 }
 
 .primaryButton:hover::before {
-  left: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #f8e08e, #d4af37);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.4s ease;
 }
 
 .secondaryButton {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-sm);
-  background-color: transparent;
-  color: var(--primary-light);
-  padding: var(--space-md) var(--space-xl);
-  border: 2px solid var(--primary-light);
-  border-radius: var(--radius-md);
+  gap: 0.8rem;
+  background: transparent;
+  color: #f8f8f8;
+  padding: 1.2rem 2.5rem;
+  border-radius: 50px;
   font-weight: 600;
+  font-size: 1.1rem;
   text-decoration: none;
-  transition: all var(--transition-medium);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(5px);
 }
 
 .buttonIcon {
@@ -474,5 +496,6 @@
 
   .badge {
     font-size: 0.8rem;
+    padding: 0.5rem 1.2rem;
   }
 }

@@ -89,7 +89,7 @@ export default function Hero() {
                   animate={{ scale: 1 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
-                  SalonTop Style
+                  Top Style
                 </motion.div>
 
                 <motion.h1 className={styles.mainTitle} variants={itemVariants}>
