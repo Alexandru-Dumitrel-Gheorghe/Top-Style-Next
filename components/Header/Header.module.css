@@ -3,26 +3,24 @@
   top: 0;
   left: 0;
   right: 0;
-  background-color: rgba(10, 10, 10, 0.95);
+  background-color: rgba(10, 10, 10, 0.9);
   color: white;
-  padding: 1.2rem 0;
+  padding: 1rem 0;
   z-index: 1000;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
 }
 
 .header.scrolled {
-  background-color: rgba(5, 5, 5, 0.98);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  padding: 0.8rem 0;
+  background-color: rgba(0, 0, 0, 0.95);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  padding: 0.5rem 0;
 }
 
 .headerContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
 }
@@ -30,41 +28,28 @@
 .logo {
   display: flex;
   align-items: center;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: #f8f8f8;
-  text-decoration: none;
-  transition: transform 0.3s ease;
-  z-index: 1002;
-}
-
-.logo:hover {
-  transform: scale(1.03);
 }
 
 .logoIcon {
-  color: #d4af37;
-  margin-right: 0.6rem;
-  font-size: 1.9rem;
-  transition: transform 0.3s ease;
-}
-
-.logo:hover .logoIcon {
-  transform: rotate(-15deg);
+  color: #d4af37; /* Gold color for premium feel */
+  margin-right: 0.5rem;
+  font-size: 1.8rem;
 }
 
 .desktopNav {
   display: flex;
   align-items: center;
-  gap: 2.5rem;
+  gap: 2rem;
 }
 
 .navLink {
-  color: rgba(255, 255, 255, 0.9);
+  color: white;
   text-decoration: none;
   font-weight: 500;
-  font-size: 1.05rem;
-  transition: all 0.3s ease;
+  transition: color 0.3s;
   position: relative;
   padding: 0.5rem 0;
 }
@@ -81,63 +66,51 @@
   width: 0;
   height: 2px;
   background-color: #d4af37;
-  transition: width 0.4s ease;
+  transition: width 0.3s;
 }
 
 .navLink:hover::after {
   width: 100%;
 }
 
-.navLink.active {
-  color: #d4af37;
-}
-
-.navLink.active::after {
-  width: 100%;
-}
-
 .ctaContainer {
   display: flex;
   align-items: center;
-  gap: 1.8rem;
-  margin-left: 2rem;
+  gap: 1.5rem;
+  margin-left: 1rem;
 }
 
 .phoneLink {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  color: rgba(255, 255, 255, 0.9);
+  gap: 0.5rem;
+  color: white;
   text-decoration: none;
-  transition: all 0.3s ease;
-  font-size: 1.05rem;
+  transition: color 0.3s;
 }
 
 .phoneLink:hover {
   color: #d4af37;
-  transform: translateY(-1px);
 }
 
 .phoneIcon {
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .ctaButton {
-  background: linear-gradient(135deg, #d4af37 0%, #f8e08e 100%);
+  background-color: #d4af37;
   color: #000;
   border: none;
-  padding: 0.8rem 1.8rem;
-  border-radius: 6px;
+  padding: 0.7rem 1.5rem;
+  border-radius: 4px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  font-size: 1.05rem;
+  transition: all 0.3s;
 }
 
 .ctaButton:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  background-color: #f8e08e;
+  transform: translateY(-2px);
 }
 
 /* Mobile styles */
@@ -146,115 +119,17 @@
   background: none;
   border: none;
   color: white;
+  font-size: 1.5rem;
   cursor: pointer;
-  z-index: 1002;
-  padding: 0.5rem;
-  transition: transform 0.3s ease;
-}
-
-.menuButton:hover {
-  transform: scale(1.1);
-}
-
-.menuIcon {
-  font-size: 1.8rem;
-  transition: all 0.3s ease;
+  z-index: 1001;
 }
 
 .mobileMenu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(10, 10, 10, 0.98);
-  z-index: 1001;
-  padding-top: 6rem;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  transform: translateY(-20px);
-}
-
-.mobileMenu.open {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-.mobileNav {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2.5rem;
-  padding: 2rem;
-  height: 100%;
-  overflow-y: auto;
-}
-
-.phoneLinkMobile {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  color: white;
-  text-decoration: none;
-  margin-top: 1.5rem;
-  font-size: 1.2rem;
-  padding: 0.8rem 1.5rem;
-  border-radius: 6px;
-  background-color: rgba(212, 175, 55, 0.1);
-  transition: all 0.3s ease;
-}
-
-.phoneLinkMobile:hover {
-  background-color: rgba(212, 175, 55, 0.2);
-  transform: translateY(-2px);
-}
-
-.ctaButtonMobile {
-  background: linear-gradient(135deg, #d4af37 0%, #f8e08e 100%);
-  color: #000;
-  border: none;
-  padding: 1rem 2.5rem;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-  margin-top: 2rem;
-  width: 100%;
-  max-width: 240px;
-  font-size: 1.1rem;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.ctaButtonMobile:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  display: none;
 }
 
 /* Responsive */
-@media (max-width: 992px) {
-  .desktopNav {
-    gap: 1.8rem;
-  }
-
-  .ctaContainer {
-    gap: 1.2rem;
-    margin-left: 1rem;
-  }
-}
-
 @media (max-width: 768px) {
-  .header {
-    padding: 1rem 0;
-  }
-
-  .header.scrolled {
-    padding: 0.6rem 0;
-  }
-
   .desktopNav {
     display: none;
   }
@@ -262,32 +137,56 @@
   .menuButton {
     display: block;
   }
-}
 
-@media (max-width: 480px) {
-  .headerContainer {
-    padding: 0 1.5rem;
-  }
-
-  .logo {
-    font-size: 1.4rem;
-  }
-
-  .logoIcon {
-    font-size: 1.7rem;
+  .mobileMenu {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(10, 10, 10, 0.95);
+    z-index: 1000;
+    padding-top: 5rem;
+    animation: fadeIn 0.3s ease;
   }
 
   .mobileNav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 2rem;
-    padding: 1.5rem;
+    padding: 2rem;
   }
 
   .phoneLinkMobile {
-    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: white;
+    text-decoration: none;
+    margin-top: 1rem;
   }
 
   .ctaButtonMobile {
-    padding: 0.9rem 2rem;
-    font-size: 1rem;
+    background-color: #d4af37;
+    color: #000;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1rem;
+    width: 100%;
+    max-width: 200px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

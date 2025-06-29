@@ -3,204 +3,104 @@ import styles from "./Header.module.css";
 import { FaCut, FaBars, FaTimes, FaPhoneAlt } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import dynamic from "next/dynamic";
-import { usePathname } from "next/navigation";
-
-// ModalTermine loaded without SSR (important for modals in Next.js app dir)
-const ModalTermine = dynamic(() => import("../ModalTermine/ModalTermine"), {
-  ssr: false,
-});
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener("scroll", handleScroll);
-
-    // Cleanup
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      // Asigură că body-ul nu rămâne blocat dacă componenta se unmount-ează
-      if (typeof document !== "undefined") {
-        document.body.style.overflow = "auto";
+      if (window.scrollY > 10) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
       }
     };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Setează overflow pe body când se schimbă meniul mobil
-  useEffect(() => {
-    if (typeof document !== "undefined") {
-      document.body.style.overflow = isMenuOpen ? "hidden" : "auto";
-    }
-  }, [isMenuOpen]);
-
   const toggleMenu = () => {
-    setIsMenuOpen((prev) => !prev);
-    // overflow e setat de useEffect-ul de mai sus
-  };
-
-  const openModal = () => {
-    setShowModal(true);
-    setIsMenuOpen(false);
-    // Orice ar fi, readuce body la auto când deschizi modalul
-    if (typeof document !== "undefined") {
-      document.body.style.overflow = "auto";
-    }
-  };
-
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-    if (typeof document !== "undefined") {
-      document.body.style.overflow = "auto";
-    }
+    setIsMenuOpen(!isMenuOpen);
   };
 
   return (
-    <>
-      <header
-        className={`${styles.header} ${isScrolled ? styles.scrolled : ""} ${
-          isMenuOpen ? styles.menuOpen : ""
-        }`}
-      >
-        <div className={styles.headerContainer}>
-          {/* LOGO */}
-          <Link href="/" className={styles.logo} onClick={closeMenu}>
-            <FaCut className={styles.logoIcon} />
-            <span className={styles.logoText}>Top Style</span>
+    <header className={`${styles.header} ${isScrolled ? styles.scrolled : ""}`}>
+      <div className={styles.headerContainer}>
+        <div className={styles.logo}>
+          <FaCut className={styles.logoIcon} />
+          <span className={styles.logoText}>Top Style</span>
+        </div>
+
+        {/* Desktop Navigation */}
+        <nav className={styles.desktopNav}>
+          <Link href="/" className={styles.navLink}>
+            Startseite
           </Link>
+          <Link href="/preise" className={styles.navLink}>
+            Preise
+          </Link>
+          <Link href="/galerie" className={styles.navLink}>
+            Galerie
+          </Link>
+          <Link href="/kontakt" className={styles.navLink}>
+            Kontakt
+          </Link>
+          <div className={styles.ctaContainer}>
+            <a href="tel:+123456789" className={styles.phoneLink}>
+              <FaPhoneAlt className={styles.phoneIcon} />
+              <span>+40 123 456 789</span>
+            </a>
+            <button className={styles.ctaButton}>Termin buchen</button>
+          </div>
+        </nav>
 
-          {/* Desktop Navigation */}
-          <nav className={styles.desktopNav}>
-            <Link
-              href="/"
-              className={`${styles.navLink} ${
-                pathname === "/" ? styles.active : ""
-              }`}
-            >
-              Startseite
-            </Link>
-            <Link
-              href="/preise"
-              className={`${styles.navLink} ${
-                pathname === "/preise" ? styles.active : ""
-              }`}
-            >
-              Preise
-            </Link>
-            <Link
-              href="/galerie"
-              className={`${styles.navLink} ${
-                pathname === "/galerie" ? styles.active : ""
-              }`}
-            >
-              Galerie
-            </Link>
-            <Link
-              href="/kontakt"
-              className={`${styles.navLink} ${
-                pathname === "/kontakt" ? styles.active : ""
-              }`}
-            >
-              Kontakt
-            </Link>
-            <div className={styles.ctaContainer}>
-              <a href="tel:+123456789" className={styles.phoneLink}>
-                <FaPhoneAlt className={styles.phoneIcon} />
-                <span>+40 123 456 789</span>
-              </a>
-              <button
-                className={styles.ctaButton}
-                onClick={openModal}
-                type="button"
-                aria-label="Termin buchen"
-              >
-                Termin buchen
-              </button>
-            </div>
-          </nav>
+        {/* Mobile Navigation */}
+        <button className={styles.menuButton} onClick={toggleMenu}>
+          {isMenuOpen ? <FaTimes /> : <FaBars />}
+        </button>
 
-          {/* Mobile Navigation */}
-          <button
-            className={styles.menuButton}
-            onClick={toggleMenu}
-            aria-label={isMenuOpen ? "Menü schließen" : "Menü öffnen"}
-            aria-expanded={isMenuOpen}
-          >
-            {isMenuOpen ? (
-              <FaTimes className={styles.menuIcon} />
-            ) : (
-              <FaBars className={styles.menuIcon} />
-            )}
-          </button>
-
-          <div
-            className={`${styles.mobileMenu} ${isMenuOpen ? styles.open : ""}`}
-          >
+        {isMenuOpen && (
+          <div className={styles.mobileMenu}>
             <nav className={styles.mobileNav}>
-              <Link
-                href="/"
-                className={`${styles.navLink} ${
-                  pathname === "/" ? styles.active : ""
-                }`}
-                onClick={closeMenu}
-              >
+              <Link href="/" className={styles.navLink} onClick={toggleMenu}>
                 Startseite
               </Link>
               <Link
                 href="/preise"
-                className={`${styles.navLink} ${
-                  pathname === "/preise" ? styles.active : ""
-                }`}
-                onClick={closeMenu}
+                className={styles.navLink}
+                onClick={toggleMenu}
               >
                 Preise
               </Link>
               <Link
                 href="/galerie"
-                className={`${styles.navLink} ${
-                  pathname === "/galerie" ? styles.active : ""
-                }`}
-                onClick={closeMenu}
+                className={styles.navLink}
+                onClick={toggleMenu}
               >
                 Galerie
               </Link>
               <Link
                 href="/kontakt"
-                className={`${styles.navLink} ${
-                  pathname === "/kontakt" ? styles.active : ""
-                }`}
-                onClick={closeMenu}
+                className={styles.navLink}
+                onClick={toggleMenu}
               >
                 Kontakt
               </Link>
               <a
                 href="tel:+123456789"
                 className={styles.phoneLinkMobile}
-                onClick={closeMenu}
+                onClick={toggleMenu}
               >
                 <FaPhoneAlt className={styles.phoneIcon} />
                 <span>+40 123 456 789</span>
               </a>
-              <button
-                className={styles.ctaButtonMobile}
-                type="button"
-                onClick={openModal}
-              >
-                Termin buchen
-              </button>
+              <button className={styles.ctaButtonMobile}>Termin buchen</button>
             </nav>
           </div>
-        </div>
-      </header>
-
-      {/* ModalTermine */}
-      <ModalTermine open={showModal} onClose={() => setShowModal(false)} />
-    </>
+        )}
+      </div>
+    </header>
   );
 }
