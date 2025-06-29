@@ -4,6 +4,7 @@ import { FaCut, FaBars, FaTimes, FaPhoneAlt } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { usePathname } from "next/navigation";
 
 // ModalTermine loaded without SSR (important for modals in Next.js app dir)
 const ModalTermine = dynamic(() => import("../ModalTermine/ModalTermine"), {
@@ -14,17 +15,13 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [activeLink, setActiveLink] = useState("");
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
     window.addEventListener("scroll", handleScroll);
-
-    // Set active link based on current route
-    setActiveLink(window.location.pathname);
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -52,6 +49,7 @@ export default function Header() {
         }`}
       >
         <div className={styles.headerContainer}>
+          {/* LOGO */}
           <Link href="/" className={styles.logo} onClick={closeMenu}>
             <FaCut className={styles.logoIcon} />
             <span className={styles.logoText}>Top Style</span>
@@ -62,7 +60,7 @@ export default function Header() {
             <Link
               href="/"
               className={`${styles.navLink} ${
-                activeLink === "/" ? styles.active : ""
+                pathname === "/" ? styles.active : ""
               }`}
             >
               Startseite
@@ -70,7 +68,7 @@ export default function Header() {
             <Link
               href="/preise"
               className={`${styles.navLink} ${
-                activeLink === "/preise" ? styles.active : ""
+                pathname === "/preise" ? styles.active : ""
               }`}
             >
               Preise
@@ -78,7 +76,7 @@ export default function Header() {
             <Link
               href="/galerie"
               className={`${styles.navLink} ${
-                activeLink === "/galerie" ? styles.active : ""
+                pathname === "/galerie" ? styles.active : ""
               }`}
             >
               Galerie
@@ -86,7 +84,7 @@ export default function Header() {
             <Link
               href="/kontakt"
               className={`${styles.navLink} ${
-                activeLink === "/kontakt" ? styles.active : ""
+                pathname === "/kontakt" ? styles.active : ""
               }`}
             >
               Kontakt
@@ -128,7 +126,7 @@ export default function Header() {
               <Link
                 href="/"
                 className={`${styles.navLink} ${
-                  activeLink === "/" ? styles.active : ""
+                  pathname === "/" ? styles.active : ""
                 }`}
                 onClick={closeMenu}
               >
@@ -137,7 +135,7 @@ export default function Header() {
               <Link
                 href="/preise"
                 className={`${styles.navLink} ${
-                  activeLink === "/preise" ? styles.active : ""
+                  pathname === "/preise" ? styles.active : ""
                 }`}
                 onClick={closeMenu}
               >
@@ -146,16 +144,16 @@ export default function Header() {
               <Link
                 href="/galerie"
                 className={`${styles.navLink} ${
-                  activeLink === "/galerie" ? styles.active : ""
+                  pathname === "/galerie" ? styles.active : ""
                 }`}
                 onClick={closeMenu}
               >
                 Galerie
               </Link>
               <Link
-                href="kontakt"
+                href="/kontakt"
                 className={`${styles.navLink} ${
-                  activeLink === "/kontakt" ? styles.active : ""
+                  pathname === "/kontakt" ? styles.active : ""
                 }`}
                 onClick={closeMenu}
               >
