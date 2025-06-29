@@ -98,20 +98,29 @@
 
 .badge {
   display: inline-block;
-  background: linear-gradient(
-    135deg,
-    var(--accent-gold),
-    var(--accent-gold-light)
-  );
-  color: var(--primary-dark);
-  padding: var(--space-xs) var(--space-md);
-  border-radius: 30px;
+  background: linear-gradient(90deg, #ffe066 0%, #ffd700 100%);
+  color: #312a1e; /* aproape negru pentru contrast elegant */
+  padding: 0.45em 1.4em;
+  border-radius: 2em;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 1rem;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: var(--space-lg);
-  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+  letter-spacing: 0.18em;
+  margin-bottom: 1.3em;
+  box-shadow: 0 2px 16px 0 rgba(255, 215, 0, 0.23),
+    0 1.5px 5px 0 rgba(48, 38, 0, 0.11);
+  /* BORDER ALB SEMI-TRANSPARENT (trick vizual premium) */
+  border: 1.7px solid rgba(255, 255, 255, 0.25);
+  /* Blur pentru fundal dacă vrei efect „glass” */
+  backdrop-filter: blur(2.5px);
+  /* Efect de „softness” la hover */
+  transition: transform 0.15s, box-shadow 0.15s, background 0.18s;
+}
+.badge:hover,
+.badge:focus {
+  transform: scale(1.04) translateY(-2px);
+  box-shadow: 0 6px 22px 0 rgba(255, 215, 0, 0.28);
+  background: linear-gradient(90deg, #fff2ac 0%, #ffd700 100%);
 }
 
 .mainTitle {
