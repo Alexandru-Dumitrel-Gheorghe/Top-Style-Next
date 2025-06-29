@@ -112,7 +112,7 @@
   position: relative;
   overflow: hidden;
 }
-badge::after {
+.badge::after {
   content: "";
   position: absolute;
   top: 0;
