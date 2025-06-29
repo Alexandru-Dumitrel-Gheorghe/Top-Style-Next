@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 
-// ModalTermine încărcat fără SSR (important pentru modale în Next.js app dir)
+// ModalTermine loaded without SSR (important for modals in Next.js app dir)
 const ModalTermine = dynamic(() => import("../ModalTermine/ModalTermine"), {
   ssr: false,
 });
@@ -14,48 +14,81 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [activeLink, setActiveLink] = useState("");
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
     window.addEventListener("scroll", handleScroll);
+
+    // Set active link based on current route
+    setActiveLink(window.location.pathname);
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
+    document.body.style.overflow = isMenuOpen ? "auto" : "hidden";
   };
 
-  // Deschide modalul și închide meniul mobil dacă e deschis
   const openModal = () => {
     setShowModal(true);
     setIsMenuOpen(false);
+    document.body.style.overflow = "auto";
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+    document.body.style.overflow = "auto";
   };
 
   return (
     <>
       <header
-        className={`${styles.header} ${isScrolled ? styles.scrolled : ""}`}
+        className={`${styles.header} ${isScrolled ? styles.scrolled : ""} ${
+          isMenuOpen ? styles.menuOpen : ""
+        }`}
       >
         <div className={styles.headerContainer}>
-          <div className={styles.logo}>
+          <Link href="/" className={styles.logo} onClick={closeMenu}>
             <FaCut className={styles.logoIcon} />
             <span className={styles.logoText}>Top Style</span>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className={styles.desktopNav}>
-            <Link href="/" className={styles.navLink}>
+            <Link
+              href="/"
+              className={`${styles.navLink} ${
+                activeLink === "/" ? styles.active : ""
+              }`}
+            >
               Startseite
             </Link>
-            <Link href="/preise" className={styles.navLink}>
+            <Link
+              href="/preise"
+              className={`${styles.navLink} ${
+                activeLink === "/preise" ? styles.active : ""
+              }`}
+            >
               Preise
             </Link>
-            <Link href="/galerie" className={styles.navLink}>
+            <Link
+              href="/galerie"
+              className={`${styles.navLink} ${
+                activeLink === "/galerie" ? styles.active : ""
+              }`}
+            >
               Galerie
             </Link>
-            <Link href="/kontakt" className={styles.navLink}>
+            <Link
+              href="/kontakt"
+              className={`${styles.navLink} ${
+                activeLink === "/kontakt" ? styles.active : ""
+              }`}
+            >
               Kontakt
             </Link>
             <div className={styles.ctaContainer}>
@@ -67,6 +100,7 @@ export default function Header() {
                 className={styles.ctaButton}
                 onClick={openModal}
                 type="button"
+                aria-label="Termin buchen"
               >
                 Termin buchen
               </button>
@@ -74,55 +108,76 @@ export default function Header() {
           </nav>
 
           {/* Mobile Navigation */}
-          <button className={styles.menuButton} onClick={toggleMenu}>
-            {isMenuOpen ? <FaTimes /> : <FaBars />}
+          <button
+            className={styles.menuButton}
+            onClick={toggleMenu}
+            aria-label={isMenuOpen ? "Menü schließen" : "Menü öffnen"}
+            aria-expanded={isMenuOpen}
+          >
+            {isMenuOpen ? (
+              <FaTimes className={styles.menuIcon} />
+            ) : (
+              <FaBars className={styles.menuIcon} />
+            )}
           </button>
 
-          {isMenuOpen && (
-            <div className={styles.mobileMenu}>
-              <nav className={styles.mobileNav}>
-                <Link href="/" className={styles.navLink} onClick={toggleMenu}>
-                  Startseite
-                </Link>
-                <Link
-                  href="/preise"
-                  className={styles.navLink}
-                  onClick={toggleMenu}
-                >
-                  Preise
-                </Link>
-                <Link
-                  href="/galerie"
-                  className={styles.navLink}
-                  onClick={toggleMenu}
-                >
-                  Galerie
-                </Link>
-                <Link
-                  href="/kontakt"
-                  className={styles.navLink}
-                  onClick={toggleMenu}
-                >
-                  Kontakt
-                </Link>
-                <a
-                  href="tel:+123456789"
-                  className={styles.phoneLinkMobile}
-                  onClick={toggleMenu}
-                >
-                  <FaPhoneAlt className={styles.phoneIcon} />
-                  <span>+40 123 456 789</span>
-                </a>
-                <button
-                  className={styles.ctaButtonMobile}
-                  type="button"
-                  onClick={openModal}
-                >
-                  Termin buchen
-                </button>
-              </nav>
-            </div>
-          )}
+          <div
+            className={`${styles.mobileMenu} ${isMenuOpen ? styles.open : ""}`}
+          >
+            <nav className={styles.mobileNav}>
+              <Link
+                href="/"
+                className={`${styles.navLink} ${
+                  activeLink === "/" ? styles.active : ""
+                }`}
+                onClick={closeMenu}
+              >
+                Startseite
+              </Link>
+              <Link
+                href="/preise"
+                className={`${styles.navLink} ${
+                  activeLink === "/preise" ? styles.active : ""
+                }`}
+                onClick={closeMenu}
+              >
+                Preise
+              </Link>
+              <Link
+                href="/galerie"
+                className={`${styles.navLink} ${
+                  activeLink === "/galerie" ? styles.active : ""
+                }`}
+                onClick={closeMenu}
+              >
+                Galerie
+              </Link>
+              <Link
+                href="kontakt"
+                className={`${styles.navLink} ${
+                  activeLink === "/kontakt" ? styles.active : ""
+                }`}
+                onClick={closeMenu}
+              >
+                Kontakt
+              </Link>
+              <a
+                href="tel:+123456789"
+                className={styles.phoneLinkMobile}
+                onClick={closeMenu}
+              >
+                <FaPhoneAlt className={styles.phoneIcon} />
+                <span>+40 123 456 789</span>
+              </a>
+              <button
+                className={styles.ctaButtonMobile}
+                type="button"
+                onClick={openModal}
+              >
+                Termin buchen
+              </button>
+            </nav>
+          </div>
         </div>
       </header>
 
