@@ -22,23 +22,43 @@ export default function Header() {
       setIsScrolled(window.scrollY > 10);
     };
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      // Asigură că body-ul nu rămâne blocat dacă componenta se unmount-ează
+      if (typeof document !== "undefined") {
+        document.body.style.overflow = "auto";
+      }
+    };
   }, []);
+
+  // Setează overflow pe body când se schimbă meniul mobil
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.body.style.overflow = isMenuOpen ? "hidden" : "auto";
+    }
+  }, [isMenuOpen]);
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
-    document.body.style.overflow = isMenuOpen ? "auto" : "hidden";
+    // overflow e setat de useEffect-ul de mai sus
   };
 
   const openModal = () => {
     setShowModal(true);
     setIsMenuOpen(false);
-    document.body.style.overflow = "auto";
+    // Orice ar fi, readuce body la auto când deschizi modalul
+    if (typeof document !== "undefined") {
+      document.body.style.overflow = "auto";
+    }
   };
 
   const closeMenu = () => {
     setIsMenuOpen(false);
-    document.body.style.overflow = "auto";
+    if (typeof document !== "undefined") {
+      document.body.style.overflow = "auto";
+    }
   };
 
   return (

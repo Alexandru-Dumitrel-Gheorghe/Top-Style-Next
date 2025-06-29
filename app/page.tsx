@@ -7,6 +7,7 @@ import UberUns from "@/components/UberUns/UberUns";
 import Testimonials from "@/components/Testimonials/Testimonials";
 import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import TeamSection from "@/components/Team/TeamSection";
+import Gallery from "@/components/Gallery/Gallery";
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
         <UberUns />
         <Preise />
         <Testimonials />
+        <Gallery />
         <TeamSection />
         <ContactForm />
         <ScrollToTop />
