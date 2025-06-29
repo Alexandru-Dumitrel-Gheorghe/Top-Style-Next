@@ -1,0 +1,29 @@
+.testimonialHover:hover {
+  transform: translateY(-10px) rotate(0deg) !important;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1), 0 0 20px rgba(212, 175, 55, 0.2) !important;
+}
+
+/* Animationen */
+@keyframes float {
+  0% {
+    transform: translateY(0px) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(-1deg);
+  }
+}
+
+.testimonialHover {
+  animation: float 6s ease-in-out infinite;
+}
+
+.testimonialHover:nth-child(2n) {
+  animation-delay: 0.5s;
+}
+
+.testimonialHover:nth-child(3n) {
+  animation-delay: 1s;
+}
