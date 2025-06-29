@@ -3,24 +3,27 @@
   top: 0;
   left: 0;
   right: 0;
-  background-color: rgba(10, 10, 10, 0.9);
+  background-color: rgba(15, 15, 15, 0.98);
   color: white;
-  padding: 1rem 0;
+  padding: 1.2rem 0;
   z-index: 1000;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .header.scrolled {
-  background-color: rgba(0, 0, 0, 0.95);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  padding: 0.5rem 0;
+  padding: 0.8rem 0;
+  background-color: rgba(10, 10, 10, 0.98);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 .headerContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 0 2rem;
 }
@@ -28,28 +31,50 @@
 .logo {
   display: flex;
   align-items: center;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  color: #f8f8f8;
+  color: white;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+  z-index: 1002;
+}
+
+.logo:hover {
+  transform: scale(1.03);
 }
 
 .logoIcon {
-  color: #d4af37; /* Gold color for premium feel */
-  margin-right: 0.5rem;
-  font-size: 1.8rem;
+  color: #d4af37;
+  margin-right: 0.8rem;
+  font-size: 2rem;
+  transition: transform 0.3s ease;
 }
 
+.logo:hover .logoIcon {
+  transform: rotate(-15deg);
+}
+
+/* Desktop Navigation */
 .desktopNav {
   display: flex;
   align-items: center;
+  gap: 3rem;
+}
+
+.navList {
+  display: flex;
   gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .navLink {
-  color: white;
+  color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
+  font-size: 1.1rem;
   font-weight: 500;
-  transition: color 0.3s;
+  transition: all 0.3s ease;
   position: relative;
   padding: 0.5rem 0;
 }
@@ -66,7 +91,7 @@
   width: 0;
   height: 2px;
   background-color: #d4af37;
-  transition: width 0.3s;
+  transition: width 0.4s ease;
 }
 
 .navLink:hover::after {
@@ -77,58 +102,160 @@
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  margin-left: 1rem;
 }
 
-.phoneLink {
+.whatsappButton {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  background: #25d366;
   color: white;
-  text-decoration: none;
-  transition: color 0.3s;
-}
-
-.phoneLink:hover {
-  color: #d4af37;
-}
-
-.phoneIcon {
-  font-size: 1rem;
-}
-
-.ctaButton {
-  background-color: #d4af37;
-  color: #000;
-  border: none;
   padding: 0.7rem 1.5rem;
-  border-radius: 4px;
+  border-radius: 50px;
   font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
+  text-decoration: none;
+  transition: all 0.3s ease;
 }
 
-.ctaButton:hover {
-  background-color: #f8e08e;
+.whatsappButton:hover {
+  background: #128c7e;
   transform: translateY(-2px);
 }
 
-/* Mobile styles */
+.whatsappIcon {
+  font-size: 1.2rem;
+}
+
+.ctaButton {
+  background: linear-gradient(135deg, #d4af37 0%, #f8e08e 100%);
+  color: #111;
+  border: none;
+  padding: 0.8rem 1.8rem;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.ctaButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+}
+
+/* Mobile Navigation */
 .menuButton {
   display: none;
   background: none;
   border: none;
   color: white;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   cursor: pointer;
-  z-index: 1001;
+  z-index: 1002;
+  transition: transform 0.3s ease;
+}
+
+.menuButton:hover {
+  transform: scale(1.1);
 }
 
 .mobileMenu {
-  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 80%;
+  max-width: 400px;
+  background: rgba(10, 10, 10, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 1001;
+  padding: 6rem 2rem 2rem;
+  box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
 }
 
-/* Responsive */
+.mobileNavList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.mobileNavLink {
+  color: white;
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  display: block;
+  padding: 0.8rem 0;
+}
+
+.mobileNavLink:hover {
+  color: #d4af37;
+}
+
+.mobileCtaContainer {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.mobilePhoneLink {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+.phoneIcon {
+  color: #d4af37;
+}
+
+.mobileWhatsappButton {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: #25d366;
+  color: white;
+  padding: 1rem;
+  border-radius: 50px;
+  font-weight: 600;
+  text-decoration: none;
+  justify-content: center;
+}
+
+.mobileCtaButton {
+  background: linear-gradient(135deg, #d4af37 0%, #f8e08e 100%);
+  color: #111;
+  border: none;
+  padding: 1rem;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+  .desktopNav {
+    gap: 2rem;
+  }
+
+  .navList {
+    gap: 1.5rem;
+  }
+
+  .ctaContainer {
+    gap: 1rem;
+  }
+}
+
 @media (max-width: 768px) {
   .desktopNav {
     display: none;
@@ -137,56 +264,27 @@
   .menuButton {
     display: block;
   }
-
-  .mobileMenu {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(10, 10, 10, 0.95);
-    z-index: 1000;
-    padding-top: 5rem;
-    animation: fadeIn 0.3s ease;
-  }
-
-  .mobileNav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-    padding: 2rem;
-  }
-
-  .phoneLinkMobile {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: white;
-    text-decoration: none;
-    margin-top: 1rem;
-  }
-
-  .ctaButtonMobile {
-    background-color: #d4af37;
-    color: #000;
-    border: none;
-    padding: 0.8rem 2rem;
-    border-radius: 4px;
-    font-weight: 600;
-    cursor: pointer;
-    margin-top: 1rem;
-    width: 100%;
-    max-width: 200px;
-  }
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
+@media (max-width: 480px) {
+  .headerContainer {
+    padding: 0 1.5rem;
   }
-  to {
-    opacity: 1;
+
+  .logo {
+    font-size: 1.6rem;
+  }
+
+  .logoIcon {
+    font-size: 1.8rem;
+  }
+
+  .mobileMenu {
+    width: 85%;
+    padding: 5rem 1.5rem 2rem;
+  }
+
+  .mobileNavLink {
+    font-size: 1.2rem;
   }
 }
