@@ -451,6 +451,7 @@
 @media (max-width: 480px) {
   .hero {
     min-height: 600px;
+    margin-top: 3rem;
   }
 
   .infoCard {
@@ -459,6 +460,7 @@
 
   .scrollIndicator {
     bottom: var(--space-lg);
+    display: none;
   }
 
   .badge {
