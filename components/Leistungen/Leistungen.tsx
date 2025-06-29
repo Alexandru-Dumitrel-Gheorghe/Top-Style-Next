@@ -5,8 +5,17 @@ import { FaShower, FaChild, FaChevronRight } from "react-icons/fa";
 import { FaScissors } from "react-icons/fa6";
 import { GiBeard } from "react-icons/gi";
 import { motion, easeOut } from "framer-motion";
+import { useState } from "react";
+import dynamic from "next/dynamic";
+
+// Importă modalul lazy, fără SSR
+const ModalTermine = dynamic(() => import("../ModalTermine/ModalTermine"), {
+  ssr: false,
+});
 
 export default function Leistungen() {
+  const [showModal, setShowModal] = useState(false);
+
   const services = [
     {
       title: "Haarschnitt Herren",
@@ -75,67 +84,79 @@ export default function Leistungen() {
   };
 
   return (
-    <section className={styles.leistungen} id="leistungen">
-      <div className={styles.backgroundPattern}></div>
-      <div className={styles.container}>
-        <div className={styles.header}>
-          <motion.h2
-            className={styles.title}
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            Unsere Premium Leistungen
-          </motion.h2>
-          <motion.p
-            className={styles.subtitle}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            Handwerkliche Perfektion und moderne Styles in entspannter
-            Atmosphäre
-          </motion.p>
-          <div className={styles.divider}></div>
-        </div>
-
-        <motion.div
-          className={styles.grid}
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          {services.map((service, index) => (
-            <motion.div
-              key={index}
-              className={`${styles.card} ${
-                service.highlight ? styles.highlight : ""
-              }`}
-              variants={itemVariants}
-              whileHover={{ scale: 1.03 }}
+    <>
+      <section className={styles.leistungen} id="leistungen">
+        <div className={styles.backgroundPattern}></div>
+        <div className={styles.container}>
+          <div className={styles.header}>
+            <motion.h2
+              className={styles.title}
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
             >
-              <div className={styles.iconContainer}>
-                <div className={styles.iconBackground}></div>
-                {service.icon}
-              </div>
-              <h3 className={styles.serviceTitle}>{service.title}</h3>
-              <p className={styles.description}>{service.description}</p>
-              <div className={styles.footer}>
-                <span className={styles.price}>{service.price}</span>
-                <button className={styles.button}>
-                  Termin buchen <FaChevronRight className={styles.arrow} />
-                </button>
-              </div>
-              {service.highlight && (
-                <div className={styles.badge}>Bestseller</div>
-              )}
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
+              Unsere Premium Leistungen
+            </motion.h2>
+            <motion.p
+              className={styles.subtitle}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              Handwerkliche Perfektion und moderne Styles in entspannter
+              Atmosphäre
+            </motion.p>
+            <div className={styles.divider}></div>
+          </div>
+
+          <motion.div
+            className={styles.grid}
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            {services.map((service, index) => (
+              <motion.div
+                key={index}
+                className={`${styles.card} ${
+                  service.highlight ? styles.highlight : ""
+                }`}
+                variants={itemVariants}
+                whileHover={{ scale: 1.03 }}
+              >
+                <div className={styles.iconContainer}>
+                  <div className={styles.iconBackground}></div>
+                  {service.icon}
+                </div>
+                <h3 className={styles.serviceTitle}>{service.title}</h3>
+                <p className={styles.description}>{service.description}</p>
+                <div className={styles.footer}>
+                  <span className={styles.price}>{service.price}</span>
+                </div>
+                {service.highlight && (
+                  <div className={styles.badge}>Bestseller</div>
+                )}
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Butonul principal - sub grilă */}
+          <div className={styles.bookButtonWrapper}>
+            <button
+              className={styles.bookButton} // schimbă aici
+              onClick={() => setShowModal(true)}
+            >
+              Termin buchen <FaChevronRight className={styles.arrow} />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* MODALUL de TERMINE */}
+      <ModalTermine open={showModal} onClose={() => setShowModal(false)} />
+    </>
   );
 }

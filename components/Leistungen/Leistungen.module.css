@@ -316,3 +316,64 @@
     font-size: 2rem;
   }
 }
+.bookButtonWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
+
+/* Buton premium stil barbershop */
+.bookButton {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 2.4rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--primary-dark, #19170f);
+  background: linear-gradient(92deg, #ffd700 0%, #e6c155 100%);
+  border: none;
+  border-radius: 30px;
+  box-shadow: 0 4px 28px rgba(212, 175, 55, 0.13), 0 2px 6px #0002;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.12s;
+  letter-spacing: 0.01em;
+}
+
+.bookButton .arrow {
+  font-size: 1.1rem;
+  margin-left: 0.25rem;
+  transition: transform 0.18s;
+}
+
+.bookButton:hover,
+.bookButton:focus-visible {
+  background: linear-gradient(94deg, #e6c155 0%, #ffd700 100%);
+  color: #19170f;
+  transform: translateY(-2px) scale(1.045);
+  box-shadow: 0 6px 34px 0 rgba(212, 175, 55, 0.25), 0 2px 12px #0003;
+}
+
+.bookButton:hover .arrow,
+.bookButton:focus-visible .arrow {
+  transform: translateX(5px) scale(1.16);
+}
+
+.bookButton:active {
+  transform: scale(0.98);
+  box-shadow: 0 3px 10px 0 rgba(212, 175, 55, 0.14);
+}
+
+@media (max-width: 600px) {
+  .bookButton {
+    width: 100%;
+    justify-content: center;
+    font-size: 1rem;
+    padding: 0.8rem 0.7rem;
+  }
+  .bookButtonWrapper {
+    margin-top: 1.3rem;
+  }
+}
