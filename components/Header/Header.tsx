@@ -28,6 +28,19 @@ export default function Header() {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // Scroll smooth la secțiuni când se apasă pe link (desktop și mobil)
+  const handleScrollTo = (
+    e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
+    id: string
+  ) => {
+    e.preventDefault();
+    setIsMenuOpen(false);
+    const element = document.querySelector(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <>
       <header
@@ -41,18 +54,34 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className={styles.desktopNav}>
-            <Link href="/" className={styles.navLink}>
+            <a
+              href="#home"
+              className={styles.navLink}
+              onClick={(e) => handleScrollTo(e, "#home")}
+            >
               Startseite
-            </Link>
-            <Link href="#preise" className={styles.navLink}>
+            </a>
+            <a
+              href="#preise"
+              className={styles.navLink}
+              onClick={(e) => handleScrollTo(e, "#preise")}
+            >
               Preise
-            </Link>
-            <Link href="#gallery" className={styles.navLink}>
+            </a>
+            <a
+              href="#gallery"
+              className={styles.navLink}
+              onClick={(e) => handleScrollTo(e, "#gallery")}
+            >
               Galerie
-            </Link>
-            <Link href="#kontakt" className={styles.navLink}>
+            </a>
+            <a
+              href="#kontakt"
+              className={styles.navLink}
+              onClick={(e) => handleScrollTo(e, "#kontakt")}
+            >
               Kontakt
-            </Link>
+            </a>
             <div className={styles.ctaContainer}>
               <a href="tel:+123456789" className={styles.phoneLink}>
                 <FaPhoneAlt className={styles.phoneIcon} />
@@ -76,34 +105,38 @@ export default function Header() {
           {isMenuOpen && (
             <div className={styles.mobileMenu}>
               <nav className={styles.mobileNav}>
-                <Link href="/" className={styles.navLink} onClick={toggleMenu}>
-                  Startseite
-                </Link>
-                <Link
-                  href="/preise"
+                <a
+                  href="#home"
                   className={styles.navLink}
-                  onClick={toggleMenu}
+                  onClick={(e) => handleScrollTo(e, "#home")}
+                >
+                  Startseite
+                </a>
+                <a
+                  href="#preise"
+                  className={styles.navLink}
+                  onClick={(e) => handleScrollTo(e, "#preise")}
                 >
                   Preise
-                </Link>
-                <Link
-                  href="/galerie"
+                </a>
+                <a
+                  href="#gallery"
                   className={styles.navLink}
-                  onClick={toggleMenu}
+                  onClick={(e) => handleScrollTo(e, "#gallery")}
                 >
                   Galerie
-                </Link>
-                <Link
-                  href="/kontakt"
+                </a>
+                <a
+                  href="#kontakt"
                   className={styles.navLink}
-                  onClick={toggleMenu}
+                  onClick={(e) => handleScrollTo(e, "#kontakt")}
                 >
                   Kontakt
-                </Link>
+                </a>
                 <a
                   href="tel:+123456789"
                   className={styles.phoneLinkMobile}
-                  onClick={toggleMenu}
+                  onClick={() => setIsMenuOpen(false)}
                 >
                   <FaPhoneAlt className={styles.phoneIcon} />
                   <span>+40 123 456 789</span>

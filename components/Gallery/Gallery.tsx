@@ -179,7 +179,7 @@ export default function Gallery() {
                   fill
                   className={styles.image}
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  onLoadingComplete={() => setIsLoading(false)}
+                  onLoad={() => setIsLoading(false)}
                   priority={index < 3}
                 />
                 {isLoading && <div className={styles.skeleton}></div>}

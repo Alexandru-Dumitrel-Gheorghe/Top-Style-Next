@@ -69,6 +69,15 @@ export default function UberUns() {
               className={styles.image}
               quality={100}
               priority
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+            <Image
+              src="/images/about4.png"
+              alt="Unser Team"
+              fill
+              className={styles.image}
+              quality={100}
+              priority
             />
             <div className={styles.imageOverlay}></div>
           </motion.div>
