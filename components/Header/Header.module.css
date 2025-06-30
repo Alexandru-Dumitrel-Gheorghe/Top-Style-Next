@@ -31,10 +31,11 @@
   font-size: 1.5rem;
   font-weight: 700;
   color: #f8f8f8;
+  cursor: pointer;
 }
 
 .logoIcon {
-  color: #d4af37; /* Gold color for premium feel */
+  color: #d4af37;
   margin-right: 0.5rem;
   font-size: 1.8rem;
 }
@@ -128,7 +129,6 @@
   display: none;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .desktopNav {
     display: none;

@@ -3,7 +3,6 @@
 import styles from "./Header.module.css";
 import { FaCut, FaBars, FaTimes, FaPhoneAlt } from "react-icons/fa";
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import ModalTermine from "../ModalTermine/ModalTermine"; // ajustează calea dacă e necesar
 
 export default function Header() {
