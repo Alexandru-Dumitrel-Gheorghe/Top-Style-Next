@@ -10,10 +10,10 @@ import {
 } from "react-icons/fa";
 import { motion, type Variants } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 
-// Importă modalul fără SSR
+// Import modal without SSR
 const ModalTermine = dynamic(() => import("../ModalTermine/ModalTermine"), {
   ssr: false,
 });
@@ -25,8 +25,20 @@ export default function Hero() {
   });
 
   const [showModal, setShowModal] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Variants...
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // Animation variants
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -66,6 +78,7 @@ export default function Hero() {
             className={styles.heroImage}
             priority
             quality={100}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 100vw"
           />
         </div>
 
@@ -108,13 +121,16 @@ export default function Hero() {
                   className={styles.buttonGroup}
                   variants={itemVariants}
                 >
-                  {/* -- Acesta deschide MODALUL, nu merge la altă pagină -- */}
                   <motion.button
                     className={styles.primaryButton}
-                    whileHover={{
-                      y: -3,
-                      boxShadow: "0 10px 25px rgba(212, 175, 55, 0.5)",
-                    }}
+                    whileHover={
+                      !isMobile
+                        ? {
+                            y: -3,
+                            boxShadow: "0 10px 25px rgba(212, 175, 55, 0.5)",
+                          }
+                        : {}
+                    }
                     whileTap={{ scale: 0.98 }}
                     onClick={() => setShowModal(true)}
                     type="button"
@@ -127,10 +143,14 @@ export default function Hero() {
                   <motion.a
                     href="#services"
                     className={styles.secondaryButton}
-                    whileHover={{
-                      y: -3,
-                      backgroundColor: "rgba(255, 255, 255, 0.1)",
-                    }}
+                    whileHover={
+                      !isMobile
+                        ? {
+                            y: -3,
+                            backgroundColor: "rgba(255, 255, 255, 0.1)",
+                          }
+                        : {}
+                    }
                     whileTap={{ scale: 0.98 }}
                   >
                     Unsere Services
@@ -142,10 +162,14 @@ export default function Hero() {
               <motion.div className={styles.infoCards} variants={itemVariants}>
                 <motion.div
                   className={styles.infoCard}
-                  whileHover={{
-                    y: -5,
-                    backgroundColor: "rgba(0, 0, 0, 0.8)",
-                  }}
+                  whileHover={
+                    !isMobile
+                      ? {
+                          y: -5,
+                          backgroundColor: "rgba(0, 0, 0, 0.8)",
+                        }
+                      : {}
+                  }
                 >
                   <div className={styles.cardIconWrapper}>
                     <FaMapMarkerAlt className={styles.cardIcon} />
@@ -165,10 +189,14 @@ export default function Hero() {
 
                 <motion.div
                   className={styles.infoCard}
-                  whileHover={{
-                    y: -5,
-                    backgroundColor: "rgba(0, 0, 0, 0.8)",
-                  }}
+                  whileHover={
+                    !isMobile
+                      ? {
+                          y: -5,
+                          backgroundColor: "rgba(0, 0, 0, 0.8)",
+                        }
+                      : {}
+                  }
                 >
                   <div className={styles.cardIconWrapper}>
                     <FaClock className={styles.cardIcon} />
@@ -184,21 +212,23 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Scroll indicator */}
-        <motion.div
-          className={styles.scrollIndicator}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.5 }}
-        >
-          <div className={styles.mouse}>
-            <div className={styles.scroller}></div>
-          </div>
-          <span>Scrollen</span>
-        </motion.div>
+        {/* Scroll indicator - only shown on desktop */}
+        {!isMobile && (
+          <motion.div
+            className={styles.scrollIndicator}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.5 }}
+          >
+            <div className={styles.mouse}>
+              <div className={styles.scroller}></div>
+            </div>
+            <span>Scrollen</span>
+          </motion.div>
+        )}
       </section>
 
-      {/* MODALUL – apare când showModal e true */}
+      {/* Modal for appointment booking */}
       <ModalTermine open={showModal} onClose={() => setShowModal(false)} />
     </>
   );
